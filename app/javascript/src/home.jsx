@@ -1,15 +1,17 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-
+import React from 'react';
+import ReactDOM from 'react-dom';
 import './home.scss';
+import Sidebar from './Sidebar';
 
 const Home = props => (
-  <h1>Home page react is working</h1>
-)
+  <div>
+    <Sidebar />
+  </div>
+);
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <Home />,
-    document.body.appendChild(document.createElement('div')),
-  )
-})
+    document.body.appendChild(document.createElement('div'))
+  );
+});
