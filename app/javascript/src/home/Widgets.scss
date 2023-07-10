@@ -1,0 +1,90 @@
+.widgets {
+    flex: 0.3;
+    padding-right: 10px;
+  }
+  
+  .widgets__input {
+    display: flex;
+    align-items: center;
+    background-color: #F5F8FA;
+    padding: 10px;
+    border-radius: 20px;
+    margin-top: 10px;
+    margin-left: 20px;
+  }
+  
+  .widgets__input > input {
+    border: none;
+    background-color: #F5F8FA;
+  }
+  
+  .widgets__searchIcon {
+    color: gray;
+  }
+  
+  .widgets__widgetContainer {
+    margin-top: 15px;
+    margin-left: 20px;
+    padding: 20px;
+    background-color: #F5F8FA;
+    border-radius: 20px;
+  }
+  
+  .widgets__widgetContainer > h2 {
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .trends {
+    padding: 10px 0;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.trends-header {
+    margin-bottom: 10px;
+}
+
+.trends-header span:first-child {
+    color: #66757f;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.trends-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.trends-list li {
+    padding-bottom: 8px;
+    font-size: 14px;
+}
+
+.suggested-accounts {
+    border-radius: 5px;
+}
+
+.accounts-header{
+    margin-bottom: 10px;
+}
+
+.accounts-header span:first-child {
+    color: #66757f;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.accounts-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.accounts-list li {
+    padding-bottom: 8px;
+    font-size: 14px;
+}
+
+a {
+  text-decoration: none;
+}
