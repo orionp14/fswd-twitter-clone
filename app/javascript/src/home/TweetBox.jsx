@@ -4,6 +4,11 @@ import { Avatar, Button } from "@material-ui/core";
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import Post from './Post';
+import {
+  createTweetApi,
+  getTweetsApi,
+  deleteTweetApi
+} from '@src/utils/fetchHelper';
 
 function TweetBox() {
   const [tweetMessage, setTweetMessage] = useState("");
@@ -11,6 +16,7 @@ function TweetBox() {
   const [tweets, setTweets] = useState([]);
   const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     fetch('/api/authenticated')
@@ -29,6 +35,16 @@ function TweetBox() {
       });
   }, []);
 
+  useEffect(() => {
+    getTweetsApi()
+      .then((data) => {
+        setTweets(data.tweets);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [submitting]);
+
   const handleTweetChange = (e) => {
     setTweetMessage(e.target.value);
   };
@@ -39,54 +55,71 @@ function TweetBox() {
 
   const handleSubmitTweet = (e) => {
     e.preventDefault();
+  
+    createTweetApi(tweetMessage)
+      .then((data) => {
+        setTweets((prevTweets) => [data, ...prevTweets]);
+        setTweetMessage("");
+        setTweetImage("");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
-    const newTweet = {
-      username: user.username,
-      text: tweetMessage,
-    };
-
-    setTweets((prevTweets) => [newTweet, ...prevTweets]);
-    setTweetMessage("");
-    setTweetImage("");
+  const handleDeleteTweet = (id) => {
+    deleteTweetApi(id)
+      .then((data) => {
+        if (data.success) {
+          setTweets((prevTweets) => prevTweets.filter((tweet) => tweet.id !== id));
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
-<div>
-  <div className='tweetBox'>
-    <form onSubmit={handleSubmitTweet}>
-      <div className="tweetBox__input">
-        <Avatar></Avatar>
-        <input
-          placeholder="What's happening?"
-          value={tweetMessage}
-          onChange={handleTweetChange}
-        ></input>
+    <div>
+      <div className='tweetBox'>
+        <form onSubmit={handleSubmitTweet}>
+          <div className="tweetBox__input">
+            <Avatar></Avatar>
+            <input
+              placeholder="What's happening?"
+              value={tweetMessage}
+              onChange={handleTweetChange}
+            ></input>
+          </div>
+          <div className='image-button-container'>
+            <IconButton className="tweetBox__imageButton" style={{ marginLeft: '15px' }}>
+              <PhotoCameraIcon />
+            </IconButton>
+            <input
+              className="tweetBox__imageInput"
+              placeholder="Enter image URL"
+              type="text"
+              value={tweetImage}
+              onChange={handleImageChange}
+            ></input>
+            <Button type="submit" className="tweetBox__tweetButton">
+              Tweet
+            </Button>
+          </div>
+        </form>
       </div>
-      <div className='image-button-container'>
-        <IconButton className="tweetBox__imageButton" style={{ marginLeft: '15px' }}>
-          <PhotoCameraIcon />
-        </IconButton>
-        <input
-          className="tweetBox__imageInput"
-          placeholder="Enter image URL"
-          type="text"
-          value={tweetImage}
-          onChange={handleImageChange}
-        ></input>
-        <Button type="submit" className="tweetBox__tweetButton">
-          Tweet
-        </Button>
+
+      <div className="postContainer">
+        {tweets.map((tweet, index) => (
+          <Post
+            key={index}
+            username={tweet.username}
+            text={tweet.text}
+            onDelete={() => handleDeleteTweet(tweet.id)}
+          />
+        ))}
       </div>
-    </form>
-  </div>
-
-  <div className="postContainer">
-    {tweets.map((tweet, index) => (
-      <Post key={index} username={tweet.username} text={tweet.text} />
-    ))}
-  </div>
-</div>
-
+    </div>
   );
 }
 

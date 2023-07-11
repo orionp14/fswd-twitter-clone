@@ -46,3 +46,25 @@ export function handleErrors(response) {
   }
   return response.json();
 }
+
+export function getTweetsApi() {
+  return fetch('/api/tweets', safeCredentials())
+    .then(handleErrors);
+}
+
+// POST /api/tweets
+export function createTweetApi(message) {
+  return fetch('/api/tweets', safeCredentials({
+    method: 'POST',
+    body: JSON.stringify({
+      tweet: {
+        message,
+      }
+    }),
+  })).then(handleErrors);
+}
+
+export function deleteTweetApi(tweetId) {
+  return fetch(`/api/tweets/${tweetId}`, safeCredentials({ method: 'DELETE' }))
+    .then(handleErrors);
+}
