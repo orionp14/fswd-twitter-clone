@@ -58,7 +58,14 @@ function TweetBox() {
   
     createTweetApi(tweetMessage)
       .then((data) => {
-        setTweets((prevTweets) => [data, ...prevTweets]);
+        getTweetsApi()
+          .then((data) => {
+            setTweets(data.tweets);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+
         setTweetMessage("");
         setTweetImage("");
       })
@@ -114,7 +121,7 @@ function TweetBox() {
           <Post
             key={index}
             username={tweet.username}
-            text={tweet.text}
+            text={tweet.message}
             onDelete={() => handleDeleteTweet(tweet.id)}
           />
         ))}
