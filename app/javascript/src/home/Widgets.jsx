@@ -10,7 +10,8 @@ function Widgets() {
         <input placeholder="Search Twitter" type="text" />
       </div>
       <div className='widgets__widgetContainer'>
-      <h2>What's happening</h2>
+      <h2 className='top-text'>What's happening</h2>
+      <div className='divider'></div>
       <div className='trends'>
       <div className="trends-header">
             <span><b>Trending Hashtags</b></span><span> &#183; </span><small><a href="">Change</a></small>      

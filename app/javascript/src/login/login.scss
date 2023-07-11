@@ -1,20 +1,61 @@
 .login-button {
     background-color: #1DA1F2;
     width: 100%;
+    border-radius: 90px;
+    border: none;
 }
 
 .login-header-text {
     font-size: 30px;
     font-weight: 700;
     padding-bottom: 10px;
+    text-align: center;
+    padding-bottom: 20px;
 }
 
 .login-header {
     display: flex;
 }
 
-.sidebar__twitterIcon {
+
+.twitter-icon{
     color: #1DA1F2;
-    font-size: 30px !important;
+    font-size: 40px !important;
 }
 
+.icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding-bottom: 15px;
+  }
+
+  .google-button {
+    width: 100%;
+    border-radius: 90px;
+    margin-bottom: 10px;
+  } 
+
+  .apple-button {
+    width: 100%;
+    border-radius: 90px;
+    margin-bottom: 20px;
+  }
+
+  .google-icon {
+    margin-bottom: 3px;
+  }
+
+  .apple-icon {
+    margin-bottom: 4px;
+    font-size: 14px;
+  }
+
+  .login-widget {
+    border-radius: 50px;
+  }
+
+  .signup-text {
+    padding-bottom: 15px;
+  }

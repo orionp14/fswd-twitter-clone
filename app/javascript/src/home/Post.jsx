@@ -8,6 +8,9 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import PublishIcon from "@material-ui/icons/Publish";
 
 function Post({ username, text, onDelete }) {
+  const processedText = text.replace(/(#\w+)/g, "<span><a href class='hashtag'='/hashtag/$1'>$1</a></span>");
+
+
   return (
     <div className="post">
       <div className="post__avatar">
@@ -16,7 +19,7 @@ function Post({ username, text, onDelete }) {
       <div className="post__body">
         <div className="post__header">
           <div className="post__headerText">
-            <a href="#">
+            <a href="/profile">
               <h3>
                 {username}{" "}
                 <span>
@@ -26,7 +29,7 @@ function Post({ username, text, onDelete }) {
             </a>
           </div>
           <div className="post__headerDescription">
-            <p>{text}</p>
+            <p dangerouslySetInnerHTML={{ __html: processedText }}></p>
           </div>
         </div>
         <button className="btn btn-sm btn-outline-danger delete-btn" onClick={onDelete}>

@@ -55,15 +55,19 @@ function TweetBox() {
 
   const handleSubmitTweet = (e) => {
     e.preventDefault();
-  
+
     createTweetApi(tweetMessage)
       .then((data) => {
-        setTweets((prevTweets) => [data, ...prevTweets]);
+        getTweetsApi()
+          .then((data) => {
+            setTweets(data.tweets);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+
         setTweetMessage("");
         setTweetImage("");
-      })
-      .catch((error) => {
-        console.error(error);
       });
   };
 
@@ -78,6 +82,16 @@ function TweetBox() {
         console.error(error);
       });
   };
+
+  // Pre-existing tweets
+  const preExistingTweets = [
+    { username: 'Oprah', message: 'Gratitude unlocks the fullness of life. Be thankful for the little things. 🙏 #Gratitude' },
+    { username: 'Kylie Jenner', message: 'Excited to launch my new makeup collection. Stay tuned for the latest beauty trends! 💄💅 #MakeupGoals' },
+    { username: 'Serena Williams', message: 'Putting in the work and pushing my limits on the court. Never stop pursuing your passions! 🎾 #TennisLife' },
+    { username: 'Cristiano', message: 'Another day, another goal. Hard work pays off! ⚽️⚡️ #Football' },
+    { username: 'Barack Obama', message: 'We can create change when we come together as a community. Let’s build a brighter future! 🌍🤝 #CommunityAction' },
+    { username: 'Elon Musk', message: "Just landed on Mars. It's dusty but promising. Time to start building a civilization! 🚀🪐 #SpaceExploration" },
+  ];
 
   return (
     <div>
@@ -102,6 +116,7 @@ function TweetBox() {
               value={tweetImage}
               onChange={handleImageChange}
             ></input>
+          
             <Button type="submit" className="tweetBox__tweetButton">
               Tweet
             </Button>
@@ -110,11 +125,11 @@ function TweetBox() {
       </div>
 
       <div className="postContainer">
-        {tweets.map((tweet, index) => (
+        {[...preExistingTweets, ...tweets].reverse().map((tweet, index) => (
           <Post
             key={index}
             username={tweet.username}
-            text={tweet.text}
+            text={tweet.message}
             onDelete={() => handleDeleteTweet(tweet.id)}
           />
         ))}

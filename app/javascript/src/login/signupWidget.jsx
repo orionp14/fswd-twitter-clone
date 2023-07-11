@@ -3,6 +3,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { safeCredentials, handleErrors } from '@src/utils/fetchHelper';
 import './login.scss';
+import TwitterIcon from "@material-ui/icons/Twitter";
+import GoogleIcon from '@mui/icons-material/Google';
+import AppleIcon from '@mui/icons-material/Apple';
 
 class SignupWidget extends React.Component {
   state = {
@@ -23,22 +26,20 @@ class SignupWidget extends React.Component {
     this.setState({
       error: '',
     });
-
+  
     fetch('/api/users', safeCredentials({
       method: 'POST',
       body: JSON.stringify({
         user: {
+          username: this.state.username,
           email: this.state.email,
           password: this.state.password,
-          username: this.state.username,
         }
       })
     }))
       .then(handleErrors)
-      .then(data => {
-        if (data.user) {
-          this.login();
-        }
+      .then(() => {
+        this.login(); // Call login directly after successful signup
       })
       .catch(error => {
         this.setState({
@@ -57,7 +58,7 @@ class SignupWidget extends React.Component {
       method: 'POST',
       body: JSON.stringify({
         user: {
-          email: this.state.email,
+          username: this.state.username,
           password: this.state.password,
         }
       })
@@ -81,7 +82,10 @@ class SignupWidget extends React.Component {
     const { email, password, username, error } = this.state;
     return (
       <React.Fragment>
-        <h1 className='login-header-text'>Welcome to Twitter!</h1>
+        <div className="icon-container">
+          <TwitterIcon className="twitter-icon" />
+        </div>
+        <h1 className='login-header-text'>Sign Up for Twitter</h1>
         <form onSubmit={this.signup}>
           <input name="username" type="text" className="form-control form-control-lg mb-3" placeholder="Username" value={username} onChange={this.handleChange} required />
           <input name="email" type="text" className="form-control form-control-lg mb-3" placeholder="Email" value={email} onChange={this.handleChange} required />
@@ -89,7 +93,9 @@ class SignupWidget extends React.Component {
           <button type="submit" className="btn btn-primary btn-block btn-lg login-button">Sign up</button>
         </form>
         <hr/>
-        <p className="mb-0">Already have an account? <a className="text-primary" onClick={this.props.toggle}>Log in</a></p>
+        <button type="submit" className="btn btn-outline-danger btn-block btn-lg google-button">Log in with <GoogleIcon className='google-icon'/></button>
+        <button type="submit" className="btn btn-outline-secondary btn-block btn-lg apple-button">Log in with <AppleIcon className='apple-icon'/></button>
+        <p className="mb-0 signup-text">Already have an account? <a className="text-primary" onClick={this.props.toggle}>Log in</a></p>
       </React.Fragment>
     )
   }

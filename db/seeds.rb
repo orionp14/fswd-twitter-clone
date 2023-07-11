@@ -15,3 +15,4 @@ users = User.create([
   { username: 'Cammy', email: 'cammy@test.com', password: 'password' },
 ])
 
+
