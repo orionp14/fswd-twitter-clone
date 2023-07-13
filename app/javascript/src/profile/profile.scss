@@ -1,0 +1,14 @@
+.profile {
+    display: flex;
+    height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 10px;
+  }
+
+  .user-feed {
+    flex: 0.5;
+    min-width: fit-content;
+    overflow-y: hidden;
+    border-right: 1.5px solid #F5F8FA;
+  }

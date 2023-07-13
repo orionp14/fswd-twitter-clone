@@ -1,7 +1,11 @@
 module Api
   class TweetsController < ApplicationController
     def index
-      @tweets = Tweet.all.order(created_at: :desc)
+      token = cookies.signed[:twitter_session_token]
+      session = Session.find_by(token: token)
+      @current_user = session.user
+
+      @tweets = Tweet.joins(:user).select('tweets.*, users.username').order(created_at: :desc)
       render 'api/tweets/index'
     end
 
