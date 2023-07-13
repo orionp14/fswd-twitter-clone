@@ -131,6 +131,7 @@ function TweetBox() {
             username={tweet.username}
             text={tweet.message}
             onDelete={() => handleDeleteTweet(tweet.id)}
+            isMine={tweet.is_mine}
           />
         ))}
       </div>
