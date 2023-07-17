@@ -60,7 +60,7 @@ function TweetBox() {
       .then((data) => {
         getTweetsApi()
           .then((data) => {
-            setTweets(data.tweets);
+            setTweets(data.tweets); // Call the callback function to update tweets in the User component
           })
           .catch((error) => {
             console.error(error);

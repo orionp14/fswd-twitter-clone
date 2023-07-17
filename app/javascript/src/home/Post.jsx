@@ -18,15 +18,24 @@ function Post({ username, text, onDelete, isMine }) {
       </div>
       <div className="post__body">
         <div className="post__header">
-          <div className="post__headerText">
-          <a href={`/users/${username}`}>
-              <h3>
-                {username}{" "}
-                <span>
+        <div className="post__headerText">
+            {isMine ? (
+              <a href={`/profile/${username}`}>
+                <h3>
+                  {username}{" "}
+                  <span>
+                    <VerifiedUserIcon className="post__badge" />
+                  </span>
+                </h3>
+              </a>
+            ) : (
+              <a href={`/users/${username}`}>
+                <h3>
+                  {username}{" "}
                   <VerifiedUserIcon className="post__badge" />
-                </span>
-              </h3>
-            </a>
+                </h3>
+              </a>
+            )}
           </div>
           <div className="post__headerDescription">
             <p dangerouslySetInnerHTML={{ __html: processedText }}></p>

@@ -15,6 +15,15 @@ import { Button } from "@material-ui/core";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function Sidebar() {
+  const handleLogout = () => {
+    // Perform the logout logic here, such as clearing the authentication token or session
+    // For example, if using localStorage:
+    localStorage.removeItem("accessToken");
+
+    // Redirect to the login page
+    window.location.href = "/";
+  };
+
   return (
       <div className="sidebar">
         <TwitterIcon className="sidebar__twitterIcon" />
@@ -32,8 +41,13 @@ function Sidebar() {
         <SidebarOption Icon={PermIdentityIcon} text="Profile" />
         <SidebarOption Icon={MoreHorizIcon} text="More" />
 
-        <Button variant="outlined" className="sidebar__tweet" fullWidth>
-          Tweet
+        <Button
+        variant="outlined"
+        className="sidebar__tweet"
+        fullWidth
+        onClick={handleLogout}
+        >
+          Log out
         </Button>
       </div>
   );
